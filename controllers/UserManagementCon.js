@@ -8,7 +8,7 @@ const getUser = async function(req, res){
         for(let i=0; i<user.length; i++){
             result.push({
                 SrNo : sr++,
-                ReferralID : user[i].referralId,
+                ReferralID : user[i].myReferralId,
                 JoinDate :	user[i].createdAt,
                 FullName : user[i].name,
                 EmailID : user[i].email,
@@ -32,7 +32,7 @@ const getPersonalDetails = async function(req, res){
         let user = await User.findById(userId);
         let obj = {
             FullName : user.name,
-            ReferralId : user.referralId,
+            ReferralId : user.myReferralId,
             Email : user.email,
             Phone : user.number,
             Address : user.address,
@@ -109,7 +109,7 @@ const searchUser = async function(req, res){
             { name: { $regex: searchTerm, $options: 'i' } },
             { email: { $regex: searchTerm, $options: 'i' } },
             { number: searchTerm },
-            { referralId: searchTerm },
+            { myReferralId: searchTerm },
           ],
         });
         return res.status(200).json({error_code : 200, users})   

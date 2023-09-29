@@ -4,6 +4,10 @@ const userSchema = new mongoose.Schema({
   referralId: {
     type: String,
   },
+  myReferralId: {
+    type: String,
+  },
+
   number: {
     type: String,
   },
@@ -67,7 +71,16 @@ const userSchema = new mongoose.Schema({
   },
   status : {
     type : String
-  } 
+  },
+  myTeam : {
+    L1 :[{
+      name : String
+    }],
+    L2 : [{
+      type : String
+    }]
+  }
+
 
 }, { timestamps: true }); 
 module.exports = mongoose.model("User", userSchema);

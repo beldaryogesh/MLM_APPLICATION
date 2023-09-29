@@ -10,8 +10,9 @@ const personal_details_1 = async function (req, res) {
   try {
     const otp = await sendOtp.sendOtp(req);
     let obj = {
-      referralId: referralId.createReferralId(),
+      myReferralId: referralId.createReferralId(),
       number: req.body.number ? req.body.number : undefined,
+      referralId : req.body.referralId ? req.body.referralId : undefined,
       otp: otp,
     };
     let user = await User.create(obj);
@@ -137,6 +138,21 @@ const payment_details = async function(req, res){
     await user.save();
     if(user.paymentDetails.status != constat.success){
       return res.status(200).json({error_code : 400, message : `payment is ${user.paymentDetails.status}`})
+    }
+    let L1 = await User.findOne({myReferralId : user.referralId})
+    if(L1){
+      L1.myTeam.L1.push({
+        name : user.name,
+      })
+      L1.save()
+    }
+    let L2 = await User.findOne({referralId : user.myReferralId})
+    if(L2){
+      L2.myTeam.L2.push({
+        name : user.name
+      })
+      L2.save();
+      console.log(L2)
     }
     return res.status(200).json({error_code : 200,  message: 'continue' });
 
