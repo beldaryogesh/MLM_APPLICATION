@@ -50,12 +50,12 @@ app.use('/', dashbordRoute);
 app.use('/', manageCommissionRoute);
 app.use('/', productRoute);
 
-const PORT = 4000;
+const PORT = 4200;
 
 const start = () => {
   try {
     connectDb();
-    app.listen(PORT, '192.168.0.234', () => {
+    app.listen(PORT, () => {
       console.log(`your express app is running on port ${PORT}`);
     });
   } catch (error) {
